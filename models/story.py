@@ -8,6 +8,6 @@ class Story:
 
     def generate(self) -> None:
         pass
-        
+
     def add_prompt(self, prompt: str) -> None:
         self.prompt = prompt

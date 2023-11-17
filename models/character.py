@@ -9,9 +9,8 @@ class Character:
     def get_name(self) -> str:
         return self.__name
 
-
     def set_name(self, name: str) -> None:
         self.__name = name
-        
+
     def is_name_empty(self) -> bool:
         return self.__name is None or self.__name == ""
