@@ -1,6 +1,5 @@
 from models.dynamics.base_dynamic import BaseDynamic
 from models.story_element import StoryElement
-from .character import Character
 
 
 class Event(StoryElement):
