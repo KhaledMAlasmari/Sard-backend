@@ -8,6 +8,6 @@ class StoryElement(ABC):
 
     def set_description_for_image(self, description) -> None:
         self.image_description = description
-    
+
     def get_description_for_image(self) -> str:
         return self.image_description

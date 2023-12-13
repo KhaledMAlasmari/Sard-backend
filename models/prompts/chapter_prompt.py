@@ -5,18 +5,18 @@ from models.prompts.base_prompt import BasePrompt
 
 
 class ChapterPrompt(BasePrompt):
-    def __init__(self, chapter: Chapter, previous_chapters_summary: str|None=None):
+    def __init__(self, chapter: Chapter, previous_chapters_summary: str | None = None):
         self.chapter = chapter
         self.events: list[Event] = self.chapter.get_events()
         self.previous_chapters_summary = previous_chapters_summary
-    
+
     def get_prompt(self) -> str:
         place = self._get_place()
         characters = self._get_characters()
         previous_chapters_summary = self.get_summary()
         # f strings cannot contain backslashes, so we use the following:
         new_line = "\n"
-        
+
         return f"""Write a chapter with dialogues using the following characters details:
 {new_line.join([f'[character name: {character.name}{new_line}character details: {character.get_description_for_image()}]' for character in characters])}
 now map it to the the information you have in the following events:
@@ -24,19 +24,21 @@ now map it to the the information you have in the following events:
 {place}
 {previous_chapters_summary}
         """.strip()
-       
+
     def get_summary(self) -> str:
         if self.previous_chapters_summary:
             return f"These are the events that happened in the previous chapters:\n{self.previous_chapters_summary}"
         else:
             return ""
-        
+
     def _get_place(self) -> str:
         if self.chapter.get_description_for_image():
-            return f"those events happened in {self.chapter.get_description_for_image()}."
+            return (
+                f"those events happened in {self.chapter.get_description_for_image()}."
+            )
         else:
             return ""
-            
+
     def _get_characters(self) -> list[Character]:
         subjects = [
             character

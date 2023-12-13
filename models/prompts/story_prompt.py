@@ -2,7 +2,7 @@ from models.prompts.base_prompt import BasePrompt
 
 
 class StoryPrompt(BasePrompt):
-    def __init__(self, genre, author_name: str|None = None):
+    def __init__(self, genre, author_name: str | None = None):
         self.genre = genre
         self.author_name = author_name
 
