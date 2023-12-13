@@ -1,8 +1,12 @@
-from .event import Event
+from models.story_element import StoryElement
+from models.event import Event
 
 
-class Chapter:
-    def __init__(self, id: int, events: Event, image: str):
+class Chapter(StoryElement):
+    def __init__(self, id: int, events: list[Event], image: str|None=None):
+        super().__init__(image)
         self.id = id
         self.events = events
-        self.image = image
+        
+    def get_events(self) -> list[Event]:
+        return self.events
