@@ -12,7 +12,6 @@ class Chapter(StoryElement):
         return self.events
     
     def __eq__(self, __value: object) -> bool:
-        print()
         return self.id == __value.id and len(self.events) == len(__value.events) and self.image == __value.image
 
     

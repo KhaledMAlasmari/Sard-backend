@@ -2,10 +2,10 @@ from models.chapter import Chapter
 
 
 class Story:
-    def __init__(self, chapters: list[Chapter], genre: str, authoe_name: str | None) -> None:
+    def __init__(self, chapters: list[Chapter], genre: str, author_name: str | None=None) -> None:
         self.chapters = chapters
         self.genre = genre
-        self.authoe_name = authoe_name
+        self.author_name = author_name
 
     def generate(self) -> None:
         pass
