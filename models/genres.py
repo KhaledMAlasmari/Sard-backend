@@ -1,7 +1,7 @@
 class Genres:
     @staticmethod
     def get_all_genres():
-        return [
+        return sorted([
             "Mystery",
             "Science Fiction",
             "Fantasy",
@@ -10,4 +10,4 @@ class Genres:
             "Historical",
             "Horror",
             "Action",
-        ].sort()
+        ])

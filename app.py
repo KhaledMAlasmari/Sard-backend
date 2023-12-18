@@ -16,12 +16,12 @@ def generate_story():
 
 @app.route("/genres", methods=["GET"])
 def get_genres():
-    return Genres.get_all_genres(), 200
+    return {"genres": Genres.get_all_genres()}, 200
 
 
 @app.route("/authors", methods=["GET"])
 def get_authors():
-    return Authors.get_all_authors(), 200
+    return {"authors": Authors.get_all_authors()}, 200
 
 
 @app.route("/health")
