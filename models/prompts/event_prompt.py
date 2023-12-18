@@ -9,3 +9,6 @@ class EventPrompt(BasePrompt):
 
     def get_prompt(self) -> str:
         return f"""{str(self.event)}"""
+
+    def __eq__(self, __value: object) -> bool:
+        return self.event == __value.event

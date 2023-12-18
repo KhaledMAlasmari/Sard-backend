@@ -56,3 +56,7 @@ now map it to the the information you have in the following events:
         characters = list(set(characters))
         characters = sorted(characters, key=lambda character: character.name)
         return characters
+
+
+    def __eq__(self, __value: object) -> bool:
+        return self.chapter == __value.chapter and self.previous_chapters_summary == __value.previous_chapters_summary

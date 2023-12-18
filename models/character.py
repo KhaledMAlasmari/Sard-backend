@@ -18,3 +18,9 @@ class Character(StoryElement):
 
     def __str__(self) -> str:
         return self.name
+    
+    def __eq__(self, __value: object) -> bool:
+        return self.name == __value.name and self.image == __value.image
+    
+    def __hash__(self) -> int:
+        return hash((self.name, self.image))

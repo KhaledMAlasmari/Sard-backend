@@ -27,3 +27,16 @@ class Event(StoryElement):
 
     def get_objects(self) -> list[StoryElement]:
         return self.objects
+
+    def __eq__(self, __value: object) -> bool:
+        return (
+            isinstance(__value, Event)
+            and self.subjects == __value.subjects
+            and self.objects == __value.objects
+            and self.dynamic == __value.dynamic
+            and self.image_description == __value.image_description
+        )
+
+    
+    def __hash__(self) -> int:
+        return hash((self.__str__()))

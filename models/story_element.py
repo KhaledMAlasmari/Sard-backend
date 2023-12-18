@@ -11,3 +11,14 @@ class StoryElement(ABC):
 
     def get_description_for_image(self) -> str:
         return self.image_description
+    
+    
+    def __eq__(self, __value: object) -> bool:
+        return (
+            isinstance(__value, StoryElement)
+            and self.image == __value.image
+            and self.image_description == __value.image_description
+        )
+        
+    def __hash__(self) -> int:
+        return hash((self.image, self.image_description))
