@@ -3,13 +3,17 @@ generate_story_schema = {
     "title": "Story schema",
     "type": "object",
     "properties": {
-        "genere": {"type": "string"},
+        "genre": {
+            "type": "string"
+        },
         "chapters": {
             "type": "array",
             "items": {
                 "type": "object",
                 "properties": {
-                    "id": {"type": "number"},
+                    "id": {
+                        "type": "number"
+                    },
                     "events": {
                         "type": "array",
                         "items": {
@@ -19,41 +23,151 @@ generate_story_schema = {
                                     "type": "array",
                                     "items": {
                                         "type": "object",
-                                        "properties": {
-                                            "name": {"type": "string"},
-                                            "image": {"type": "string"},
-                                        },
-                                        "required": ["name", "image"],
-                                    },
+                                        "anyOf": [
+                                            {
+                                                "properties": {
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "image": {
+                                                        "type": "string"
+                                                    },
+                                                    "type": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "name",
+                                                    "image",
+                                                    "type"
+                                                ]
+                                            },
+                                            {
+                                                "properties": {
+                                                    "subjects": {
+                                                        "type": "array"
+                                                    },
+                                                    "objects": {
+                                                        "type": "array"
+                                                    },
+                                                    "dynamic": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "type": {
+                                                                "type": "string"
+                                                            },
+                                                            "name": {
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "required": [
+                                                            "type",
+                                                            "name"
+                                                        ]
+                                                    },
+                                                    "type": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "subjects",
+                                                    "objects",
+                                                    "dynamic",
+                                                    "type"
+                                                ]
+                                            }
+                                        ]
+                                    }
                                 },
                                 "objects": {
                                     "type": "array",
                                     "items": {
                                         "type": "object",
-                                        "properties": {
-                                            "name": {"type": "string"},
-                                            "image": {"type": "string"},
-                                        },
-                                        "required": ["name", "image"],
-                                    },
+                                        "anyOf": [
+                                            {
+                                                "properties": {
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "image": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "name",
+                                                    "image"
+                                                ]
+                                            },
+                                            {
+                                                "properties": {
+                                                    "subjects": {
+                                                        "type": "array"
+                                                    },
+                                                    "objects": {
+                                                        "type": "array"
+                                                    },
+                                                    "dynamic": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "type": {
+                                                                "type": "string"
+                                                            },
+                                                            "name": {
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "required": [
+                                                            "type",
+                                                            "name"
+                                                        ]
+                                                    }
+                                                },
+                                                "required": [
+                                                    "subjects",
+                                                    "objects",
+                                                    "dynamic"
+                                                ]
+                                            }
+                                        ]
+                                    }
                                 },
                                 "dynamic": {
                                     "type": "object",
                                     "properties": {
-                                        "type": {"type": "string"},
-                                        "name": {"type": "string"},
+                                        "type": {
+                                            "type": "string"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        }
                                     },
-                                    "required": ["type", "name"],
-                                },
+                                    "required": [
+                                        "type",
+                                        "name"
+                                    ]
+                                }
                             },
-                            "required": ["subjects", "objects", "dynamic"],
-                        },
+                            "required": [
+                                "subjects",
+                                "objects",
+                                "dynamic"
+                            ]
+                        }
                     },
-                    "image": {"type": "string"},
+                    "image": {
+                        "type": "string"
+                    }
                 },
-                "required": ["id", "events", "image"],
-            },
-        },
+                "required": [
+                    "id",
+                    "events",
+                    "image"
+                ]
+            }
+        }
     },
-    "required": ["genere", "chapters"],
+    "required": [
+        "genre",
+        "chapters"
+    ]
 }

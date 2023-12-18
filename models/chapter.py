@@ -10,3 +10,10 @@ class Chapter(StoryElement):
 
     def get_events(self) -> list[Event]:
         return self.events
+    
+    def __eq__(self, __value: object) -> bool:
+        return self.id == __value.id and len(self.events) == len(__value.events) and self.image == __value.image
+
+    
+    def __hash__(self) -> int:
+        return hash((self.id, self.events))
