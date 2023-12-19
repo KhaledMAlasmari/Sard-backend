@@ -47,7 +47,8 @@ now map it to the the information you have in the following events:
 [Kai the Vigilant ran to and hid from Azure Fury in A narrow alleyway in what appears to be an Asian urban setting, possibly within a Chinatown district. The atmosphere is one of quiet everyday life, with red lanterns hanging above adding a vibrant touch to the otherwise muted and weathered buildings. The signs in Chinese characters suggest a place rich in culture and history, while the deserted nature of the alley gives a sense of stillness and solitude. .]
 
 >\"\"\"
-Output Length: \"\"\"<3000 words>\"\"\""""
+Output Length: \"\"\"<3000 words>\"\"\"
+Take your time with the writing, perfection this chapter and make it as a one piece without divisions."""
         self.assertMultiLineEqual(chapter_prompt.get_prompt(), expected_prompt)
 
     def test_get_prompt_with_summary(self):
@@ -93,7 +94,8 @@ now map it to the the information you have in the following events:
 Use previous chapter information: \"\"\"<Summary:
 omg very awesome action like so intense hahaha>\"\"\"
 >\"\"\"
-Output Length: \"\"\"<3000 words>\"\"\""""
+Output Length: \"\"\"<3000 words>\"\"\"
+Take your time with the writing, perfection this chapter and make it as a one piece without divisions."""
         self.assertMultiLineEqual(chapter_prompt.get_prompt(), expected_prompt)
 
 

@@ -23,7 +23,8 @@ now map it to the the information you have in the following events:
 {new_line.join([f'[{event}]' for event in self.chapter.events])}
 {previous_chapters_summary}
 {place}>\"\"\"
-Output Length: \"\"\"<3000 words>\"\"\"""".strip()
+Output Length: \"\"\"<3000 words>\"\"\"
+Take your time with the writing, perfection this chapter and make it as a one piece without divisions.""".strip()
     
     
 
