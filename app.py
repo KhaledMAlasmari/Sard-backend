@@ -1,18 +1,20 @@
 from flask import Flask, g
+from flask_socketio import SocketIO, send, emit, join_room, leave_room
 from flask_expects_json import expects_json
 from utils.schema.story_schema import generate_story_schema
 from models.genres import Genres
 from models.authors import Authors
+import jsonschema
 
 app = Flask(__name__)
+socketio = SocketIO(app)
 
 
-@app.route("/generate_story", methods=["POST"])
-@expects_json(generate_story_schema)
-def generate_story():
-    print(g.data)
-    return "", 200
-
+@socketio.on("generate_story")
+def handle_generate_story(data):
+    # validation, if valid it does not return anything otherwise it raises an exception which is caught by the error handler
+    jsonschema.validate(data, generate_story_schema)
+    emit("generated_story", {"story": "This is a story"})
 
 @app.route("/genres", methods=["GET"])
 def get_genres():
@@ -24,6 +26,17 @@ def get_authors():
     return {"authors": Authors.get_all_authors()}, 200
 
 
+@socketio.on_error_default  # handles all namespaces without an explicit error handler
+def default_error_handler(e):
+    print("An error occurred:", e)
+    emit("error", {"error": e.message})
+
+
+# health check endpoint
 @app.route("/health")
 def hello():
     return "", 201
+
+
+if __name__ == "__main__":
+    socketio.run(app, debug=True)
