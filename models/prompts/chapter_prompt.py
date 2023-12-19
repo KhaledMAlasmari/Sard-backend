@@ -17,19 +17,19 @@ class ChapterPrompt(BasePrompt):
         # f strings cannot contain backslashes, so we use the following:
         new_line = "\n"
 
-        return f"""Request: '''<Write a chapter with dialogues using the following characters details:
+        return f"""Request: \"\"\"<Write a chapter with dialogues using the following characters details:
 {new_line.join([f'[character name: {character.name}{new_line}character details: {character.get_description_for_image()}]' for character in characters])}
 now map it to the the information you have in the following events:
 {new_line.join([f'[{event}]' for event in self.chapter.events])}
-{place}>'''
 {previous_chapters_summary}
-Output Length: '''<3000 words>'''""".strip()
+{place}>\"\"\"
+Output Length: \"\"\"<3000 words>\"\"\"""".strip()
     
     
 
     def get_summary(self) -> str:
         if self.previous_chapters_summary:
-            return f"Use previous chapter information: '''<Summary:\n{self.previous_chapters_summary}>'''"
+            return f"Use previous chapter information: \"\"\"<Summary:\n{self.previous_chapters_summary}>\"\"\""
         else:
             return ""
 
