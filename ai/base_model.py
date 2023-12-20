@@ -5,6 +5,6 @@ class BaseModel(ABC):
     def __init__(self):
         pass
 
-    @abstractmethod
+"""     @abstractmethod
     def predict(self):
-        pass
+        pass """
