@@ -5,7 +5,10 @@ from models.chapter import Chapter
 from models.character import Character
 from models.prompts.story_prompt import StoryPrompt
 from models.prompts.chapter_prompt import ChapterPrompt
+from models.prompts.chapter_prompt import ChapterPrompt
 from models.story import Story
+from models.story_element import StoryElement
+from utils.extract_data import extract_chapters
 from models.story_element import StoryElement
 from utils.extract_data import extract_chapters, extract_graphs
 
