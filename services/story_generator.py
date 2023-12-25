@@ -7,6 +7,7 @@ from models.prompts.story_prompt import StoryPrompt
 from models.prompts.chapter_prompt import ChapterPrompt
 from models.prompts.chapter_prompt import ChapterPrompt
 from models.story import Story
+<<<<<<< HEAD
 from models.story_element import StoryElement
 from utils.extract_data import extract_chapters
 from models.story_element import StoryElement
@@ -90,3 +91,11 @@ def apply_descriptions_for_images(
                 for object in event.objects:
                     if object.image == story_element.image:
                         object.set_description_for_image(description)
+=======
+    graphs = extract_graphs(data)
+
+    story = Story(genre=genre, chapters=chapters, authoe_name=author_name)
+    #TODO: CONTINUE THIS TO GENERATE STORY
+    #story_prompt = StoryPrompt(story)
+    
+>>>>>>> 71565e8 (**** you)
