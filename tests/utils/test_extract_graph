@@ -1,61 +1,45 @@
 import unittest
-from models.chapter import Chapter
-from models.event import Event
 from models.dynamics.action import Action
 from models.character import Character
+from models.event import Event
+from models.chapter import Chapter
 from utils.extract_data import extract_graphs
+from models.ChapterGraph import Graph
 
-class TestExtractData(unittest.TestCase):
-    def test_extract_graphs(self):
-        data = {
-            "genere": "Adventure",
-            "chapters": [
-                {
-                    "id": 1,
-                    "events": [
-                        {
-                            "subjects": [
-                                {
-                                    "name": "John",
-                                    "image": "john.png",
-                                    "type": "character"
-                                }
-                            ],
-                            "objects": [
-                                {
-                                    "name": "Apple",
-                                    "image": "apple.png",
-                                    "type": "character"
-                                }
-                            ],
-                            "dynamic": {
-                                "type": "action",
-                                "name": "Eating"
-                            }
-                        }
-                    ],
-                    "image": "chapter1.png"
-                }
-            ]
-        }
-        # Call function with validated data
-        result = extract_graphs(data)
-        print(result)
-        # Assert that the result matches the expected output
-        # The expected output depends on the implementation of `extract_chapters`
-        # Replace `expected_output` with the expected result
+
+
+class TestExtractGraph(unittest.TestCase):
+    def test_extract_graph(self):
+
+        self.assertEqual.__self__.maxDiff=None
+        char1 = Character("Vex")
+        char1.set_description_for_image(
+            "A character with a defiant and intense expression. She has bright red, choppy hair with dark roots, styled asymmetrically with one side short and the other longer. A distinctive trait is a tattoo under her right eye resembling the Roman numeral five, V'. She has a septum piercing, a dark lipstick, and wears a high-collared jacket with a futuristic design."
+        )
+        char2 = Character("Azure Fury")
+        char2.set_description_for_image(
+            "A character with a bold and confident look. Her hair is a striking blue, pulled back into a long braid draped over one shoulder. Her eyes are a piercing red, and her expression is serious, with a slight frown. She sports several tattoos and scars that suggest a history of bade or conflict. Her attire seems to be a blend of armor and casual wear, indicating a readiness for combat."
+        )
+        char3 = Character("Kai the Vigilant")
+        char3.set_description_for_image(
+            "A character with a focused and determined expression. The character has white hair with black roots, styled in twists that are adorned with gold cuffs. There's a certain intensity in the eyes, which are highlighted with white markings underneath. The character's attire, including a scarf and what appears to be a part of a uniform, adds to a look of practicality and purpose."
+        )
+        event_1 = Event([char1], [char2], Action("fought"))
+        event_1.set_description_for_image(
+            "A dystopian vision of a city overcome by nature and neglect. The cyberpunk influences are clear, with neon signs cutting through the overgrowth and a lone boat suggesting the only means of traversal through this flooded urban jungle. There's a feeling of decay but also resilience, as the city continues to pulse with life and light despite its apparent abandonment."
+        )
+        event_2 = Event([char3], [event_1], Action("watched"))
+        event_3 = Event([char3], [char2], Action("ran to and hid from"))
+        event_3.set_description_for_image(
+            "A narrow alleyway in what appears to be an Asian urban setting, possibly within a Chinatown district. The atmosphere is one of quiet everyday life, with red lanterns hanging above adding a vibrant touch to the otherwise muted and weathered buildings. The signs in Chinese characters suggest a place rich in culture and history, while the deserted nature of the alley gives a sense of stillness and solitude. "
+        )
+        chapter_events = [event_1, event_2, event_3]
+        chapter = Chapter(1, chapter_events)
+        chapters = [chapter]
+        #------------------------------------
+        result = extract_graphs(chapters)
         expected_output = [
-            Chapter(
-                id=1,
-                events=[
-                    Event(
-                        subjects=[Character(name="John", image="john.png")],
-                        objects=[Character(name="Apple", image="apple.png")],
-                        dynamic=Action(description="Eating"),
-                    )
-                ],
-                image="chapter1.png",
-            )
+            
         ]
         self.assertCountEqual(result, expected_output)
 

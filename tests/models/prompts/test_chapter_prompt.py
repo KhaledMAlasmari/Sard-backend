@@ -32,9 +32,9 @@ class TestChapterPrompt(unittest.TestCase):
             "A narrow alleyway in what appears to be an Asian urban setting, possibly within a Chinatown district. The atmosphere is one of quiet everyday life, with red lanterns hanging above adding a vibrant touch to the otherwise muted and weathered buildings. The signs in Chinese characters suggest a place rich in culture and history, while the deserted nature of the alley gives a sense of stillness and solitude. "
         )
         chapter_events = [event_1, event_2, event_3]
-        chapter = Chapter(1, chapter_events)
+        chapter = Chapter(1, chapter_events,chapterType="introduction")
         chapter_prompt = ChapterPrompt(chapter)
-        expected_prompt = """Request: \"\"\"<Write a chapter with dialogues using the following characters details:
+        expected_prompt = """Request: \"\"\"<Write chapter 2 with dialogues using the following characters details:
 [character name: Azure Fury
 character details: A character with a bold and confident look. Her hair is a striking blue, pulled back into a long braid draped over one shoulder. Her eyes are a piercing red, and her expression is serious, with a slight frown. She sports several tattoos and scars that suggest a history of bade or conflict. Her attire seems to be a blend of armor and casual wear, indicating a readiness for combat.]
 [character name: Kai the Vigilant
@@ -48,6 +48,7 @@ now map it to the the information you have in the following events:
 
 >\"\"\"
 Output Length: \"\"\"<3000 words>\"\"\"
+Structure: \"\"\"<You are writing a introduction chapter, follow the rules to write an amazing introduction> \"\"\"
 Take your time with the writing, perfection this chapter and make it as a one piece without divisions."""
         self.assertMultiLineEqual(chapter_prompt.get_prompt(), expected_prompt)
 
@@ -75,12 +76,12 @@ Take your time with the writing, perfection this chapter and make it as a one pi
             "A narrow alleyway in what appears to be an Asian urban setting, possibly within a Chinatown district. The atmosphere is one of quiet everyday life, with red lanterns hanging above adding a vibrant touch to the otherwise muted and weathered buildings. The signs in Chinese characters suggest a place rich in culture and history, while the deserted nature of the alley gives a sense of stillness and solitude. "
         )
         chapter_events = [event_1, event_2, event_3]
-        chapter = Chapter(1, chapter_events)
+        chapter = Chapter(1, chapter_events,chapterType="introduction")
 
         chapter_prompt = ChapterPrompt(
             chapter, "omg very awesome action like so intense hahaha"
         )
-        expected_prompt = """Request: \"\"\"<Write a chapter with dialogues using the following characters details:
+        expected_prompt = """Request: \"\"\"<Write chapter 2 with dialogues using the following characters details:
 [character name: Azure Fury
 character details: A character with a bold and confident look. Her hair is a striking blue, pulled back into a long braid draped over one shoulder. Her eyes are a piercing red, and her expression is serious, with a slight frown. She sports several tattoos and scars that suggest a history of bade or conflict. Her attire seems to be a blend of armor and casual wear, indicating a readiness for combat.]
 [character name: Kai the Vigilant
@@ -95,6 +96,7 @@ Use previous chapter information: \"\"\"<Summary:
 omg very awesome action like so intense hahaha>\"\"\"
 >\"\"\"
 Output Length: \"\"\"<3000 words>\"\"\"
+Structure: \"\"\"<You are writing a introduction chapter, follow the rules to write an amazing introduction> \"\"\"
 Take your time with the writing, perfection this chapter and make it as a one piece without divisions."""
         self.assertMultiLineEqual(chapter_prompt.get_prompt(), expected_prompt)
 

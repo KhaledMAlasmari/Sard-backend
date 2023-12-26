@@ -8,6 +8,7 @@ class ChapterPrompt(BasePrompt):
     def __init__(self, chapter: Chapter, previous_chapters_summary: str | None = None):
         self.chapter = chapter
         self.events: list[Event] = self.chapter.get_events()
+        self.chapterType: str = self.chapter.get_type()
         self.previous_chapters_summary = previous_chapters_summary
 
     def get_prompt(self) -> str:
@@ -24,6 +25,7 @@ now map it to the the information you have in the following events:
 {previous_chapters_summary}
 {place}>\"\"\"
 Output Length: \"\"\"<3000 words>\"\"\"
+Structure: \"\"\"<You are writing a {self.chapterType} chapter, follow the rules to write an amazing {self.chapterType}> \"\"\"
 Take your time with the writing, perfection this chapter and make it as a one piece without divisions.""".strip()
     
     

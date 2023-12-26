@@ -20,5 +20,7 @@ class Graph:
         return self.graph.get(u, [])
 
     def __str__(self):
-        return f"Graph {self.id}: {str(self.graph)}"
-
+        result = f"Graph {self.id}:\n"
+        for node, edges in self.graph.items():
+            result += f"\n{node}: {', '.join([f'({v}, {w})' for v, w in edges])}\n"
+        return result

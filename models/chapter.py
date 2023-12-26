@@ -3,13 +3,17 @@ from models.event import Event
 
 
 class Chapter(StoryElement):
-    def __init__(self, id: int, events: list[Event], image: str | None = None):
+    def __init__(self, id: int, events: list[Event], image: str | None = None , chapterType: str | None = None):
         super().__init__(image)
         self.id = id
         self.events = events
+        self.chapterType = chapterType
 
     def get_events(self) -> list[Event]:
         return self.events
+
+    def get_type(self) -> str:
+        return self.chapterType
     
     def __eq__(self, __value: object) -> bool:
         return self.id == __value.id and len(self.events) == len(__value.events) and self.image == __value.image
