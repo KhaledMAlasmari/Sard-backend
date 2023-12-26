@@ -32,7 +32,7 @@ class TestChapterPrompt(unittest.TestCase):
             "A narrow alleyway in what appears to be an Asian urban setting, possibly within a Chinatown district. The atmosphere is one of quiet everyday life, with red lanterns hanging above adding a vibrant touch to the otherwise muted and weathered buildings. The signs in Chinese characters suggest a place rich in culture and history, while the deserted nature of the alley gives a sense of stillness and solitude. "
         )
         chapter_events = [event_1, event_2, event_3]
-        chapter = Chapter(1, chapter_events)
+        chapter = Chapter(1, chapter_events,chapterType="introduction")
         chapter_prompt = ChapterPrompt(chapter)
         expected_prompt = """Request: \"\"\"<Write chapter 2 with dialogues and emotions using the following characters details:
 [character name: Azure Fury
@@ -76,7 +76,7 @@ Take your time with the writing, perfection this chapter."""
             "A narrow alleyway in what appears to be an Asian urban setting, possibly within a Chinatown district. The atmosphere is one of quiet everyday life, with red lanterns hanging above adding a vibrant touch to the otherwise muted and weathered buildings. The signs in Chinese characters suggest a place rich in culture and history, while the deserted nature of the alley gives a sense of stillness and solitude. "
         )
         chapter_events = [event_1, event_2, event_3]
-        chapter = Chapter(1, chapter_events)
+        chapter = Chapter(1, chapter_events,chapterType="introduction")
 
         chapter_prompt = ChapterPrompt(
             chapter, "omg very awesome action like so intense hahaha"
