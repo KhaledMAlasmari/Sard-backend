@@ -18,7 +18,7 @@ class ChapterPrompt(BasePrompt):
         # f strings cannot contain backslashes, so we use the following:
         new_line = "\n"
         # added one to the chapter id because the chapter id starts from 0
-        return f"""Request: \"\"\"<Write chapter {self.chapter.id + 1} with dialogues using the following characters details:
+        return f"""Request: \"\"\"<Write chapter {self.chapter.id + 1} with dialogues and emotions using the following characters details:
 {new_line.join([f'[character name: {character.name}{new_line}character details: {character.get_description_for_image()}]' for character in characters])}
 now map it to the the information you have in the following events:
 {new_line.join([f'[{event}]' for event in self.chapter.events])}
@@ -26,19 +26,19 @@ now map it to the the information you have in the following events:
 {place}>\"\"\"
 Output Length: \"\"\"<3000 words>\"\"\"
 Structure: \"\"\"<You are writing a {self.chapterType} chapter, follow the rules to write an amazing {self.chapterType}> \"\"\"
-Take your time with the writing, perfection this chapter and make it as a one piece without divisions.""".strip()
+Take your time with the writing, perfection this chapter.""".strip()
     
     
 
     def get_summary(self) -> str:
         if self.previous_chapters_summary:
-            return f"Use previous chapter information: \"\"\"<Summary:\n{self.previous_chapters_summary}>\"\"\""
+            return f"Use previous chapter information but do not include it explicitly: \"\"\"<Summary:\n{self.previous_chapters_summary}>\"\"\""
         else:
             return ""
 
     def set_summary(self) -> str:
         if self.previous_chapters_summary:
-            return f"Use previous chapter information: \"\"\"<Summary:\n{self.previous_chapters_summary}>\"\"\""
+            return f"Use previous chapter information but do not include it explicitly: \"\"\"<Summary:\n{self.previous_chapters_summary}>\"\"\""
         else:
             return ""
     def _get_place(self) -> str:
