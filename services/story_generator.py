@@ -13,10 +13,11 @@ from utils.extract_data import extract_chapters, extract_graphs
 def generate_story(data: dict):
     genre = data["genre"]
     author_name = data.get("author_name", None)
+    story_type = data.get("story_type",None)
     chapters = extract_chapters(data)
     graphs = extract_graphs(data)
-
-    story = Story(genre=genre, chapters=chapters, author_name=author_name)
+    # Added the story type
+    story = Story(genre=genre, chapters=chapters, author_name=author_name, story_type=story_type)
     story_prompt = StoryPrompt(story)
     print(story_prompt.get_prompt())
     get_descriptions_for_images(chapters)
@@ -26,7 +27,7 @@ def generate_story(data: dict):
     output = []
     for i in range(len(chapters)):
         chapter = chapters[i]
-        chapter_prompt = ChapterPrompt(chapter, previous_chapter_summary)
+        chapter_prompt = ChapterPrompt(story_type,chapter, previous_chapter_summary)
         chapter_story = story_generation_model.generate_story(chapter_prompt.get_prompt())
         output.append(
             {

@@ -31,7 +31,7 @@ event_3.set_description_for_image(
 )
 chapter_events = [event_1, event_2, event_3]
 #print(event_3.dynamic)
-chapter = Chapter(1, chapter_events,chapterType="Climax")
+chapter = Chapter(1, chapter_events)
 print(chapter.get_type())
 chapters = [chapter]
 #------------------------------------
