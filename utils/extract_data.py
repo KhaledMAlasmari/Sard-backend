@@ -2,7 +2,7 @@ from models.chapter import Chapter
 from models.character import Character
 from models.event import Event
 from models.dynamics.action import Action
-
+from models.dynamics.relationship import Relationship
 
 def extract_chapters(data) -> list[Chapter]:
     chapters_data = data["chapters"]
@@ -35,7 +35,15 @@ def extract_chapters(data) -> list[Chapter]:
             events.append(
                 Event(subjects=subjects, objects=objects, dynamic=dynamic)
             )
-
+            
+            if event["dynamic"]["type"] == "relationship":
+                dynamic = Relationship(description=event["dynamic"]["name"])
+            else:
+                dynamic = None
+            events.append(
+                Event(subjects=subjects, objects=objects, dynamic=dynamic)
+            )
+            
         chapters.append(
             Chapter(id=int(chapter_data["id"]), events=events, image=chapter_data["image"])
         )
