@@ -30,20 +30,14 @@ def extract_chapters(data) -> list[Chapter]:
 
             if event["dynamic"]["type"] == "action":
                 dynamic = Action(description=event["dynamic"]["name"])
-            else:
-                dynamic = None
-            events.append(
-                Event(subjects=subjects, objects=objects, dynamic=dynamic)
-            )
-            
-            if event["dynamic"]["type"] == "relationship":
+            elif event["dynamic"]["type"] == "relationship":
                 dynamic = Relationship(description=event["dynamic"]["name"])
             else:
                 dynamic = None
             events.append(
                 Event(subjects=subjects, objects=objects, dynamic=dynamic)
             )
-            
+
         chapters.append(
             Chapter(id=int(chapter_data["id"]), events=events, image=chapter_data["image"])
         )
