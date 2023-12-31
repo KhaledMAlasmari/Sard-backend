@@ -30,7 +30,7 @@ generate_story_schema = {
                                                         "type": "string"
                                                     },
                                                     "image": {
-                                                        "type": "string"
+                                                        "type": ["string", "null"]
                                                     },
                                                     "type": {
                                                         "type": "string"
@@ -90,7 +90,7 @@ generate_story_schema = {
                                                         "type": "string"
                                                     },
                                                     "image": {
-                                                        "type": "string"
+                                                        "type": ["string", "null"]
                                                     }
                                                 },
                                                 "required": [
@@ -155,7 +155,7 @@ generate_story_schema = {
                         }
                     },
                     "image": {
-                        "type": "string"
+                        "type": ["string", "null"]
                     }
                 },
                 "required": [
