@@ -1,9 +1,11 @@
 import unittest
 from models.chapter import Chapter
+from models.dynamics.relationship import Relationship
 from models.event import Event
 from models.dynamics.action import Action
 from models.character import Character
 from utils.extract_data import extract_chapters
+
 
 class TestExtractData(unittest.TestCase):
     def test_extract_chapters(self):
@@ -18,25 +20,22 @@ class TestExtractData(unittest.TestCase):
                                 {
                                     "name": "John",
                                     "image": "john.png",
-                                    "type": "character"
+                                    "type": "character",
                                 }
                             ],
                             "objects": [
                                 {
                                     "name": "Apple",
                                     "image": "apple.png",
-                                    "type": "character"
+                                    "type": "character",
                                 }
                             ],
-                            "dynamic": {
-                                "type": "action",
-                                "name": "Eating"
-                            }
+                            "dynamic": {"type": "action", "name": "Eating"},
                         }
                     ],
-                    "image": "chapter1.png"
+                    "image": "chapter1.png",
                 }
-            ]
+            ],
         }
         # Call function with validated data
         result = extract_chapters(data)
@@ -59,5 +58,55 @@ class TestExtractData(unittest.TestCase):
         ]
         self.assertCountEqual(result, expected_output)
 
-if __name__ == '__main__':
+    def test_extract_chapters_actions(self):
+        data = {
+            "genere": "Adventure",
+            "chapters": [
+                {
+                    "id": 1,
+                    "events": [
+                        {
+                            "subjects": [
+                                {
+                                    "name": "John",
+                                    "image": "john.png",
+                                    "type": "character",
+                                }
+                            ],
+                            "objects": [
+                                {
+                                    "name": "Mark",
+                                    "image": "mark.png",
+                                    "type": "character",
+                                }
+                            ],
+                            "dynamic": {"type": "relationship", "name": "Brother"},
+                        }
+                    ],
+                    "image": "chapter1.png",
+                }
+            ],
+        }
+        # Call function with validated data
+        result = extract_chapters(data)
+
+        # Assert that the result matches the expected output
+        # The expected output depends on the implementation of `extract_chapters`
+        # Replace `expected_output` with the expected result
+        expected_output = [
+            Chapter(
+                id=1,
+                events=[
+                    Event(
+                        subjects=[Character(name="John", image="john.png")],
+                        objects=[Character(name="Mark", image="mark.png")],
+                        dynamic=Relationship(description="Brother"),
+                    )
+                ],
+                image="chapter1.png",
+            )
+        ]
+        self.assertCountEqual(result, expected_output)
+
+if __name__ == "__main__":
     unittest.main()
