@@ -73,7 +73,7 @@ Take your time with the writing, perfection this chapter.""".strip()
         return characters
 
     def _get_chapter_type(self) -> str:
-        if self.story_type is not None:
+        if self.story_type is not None and self.story_type != 'Free':
             return f"{self.chaptersRulesDict[self.story_type][self.chapter.id]}"
         else:
             ""

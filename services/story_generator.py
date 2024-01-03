@@ -15,7 +15,8 @@ def generate_story(data: dict):
     author_name = data.get("author_name", None)
     story_type = data.get("story_type",None)
     chapters = extract_chapters(data)
-    graphs = extract_graphs(data)
+    # TODO: FIX THIS!!! 
+    #graphs = extract_graphs(data)
     # Added the story type
     story = Story(genre=genre, chapters=chapters, author_name=author_name, story_type=story_type)
     story_prompt = StoryPrompt(story)
