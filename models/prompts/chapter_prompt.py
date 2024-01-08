@@ -23,7 +23,7 @@ class ChapterPrompt(BasePrompt):
         # f strings cannot contain backslashes, so we use the following:
         new_line = "\n"
         # added one to the chapter id because the chapter id starts from 0
-        return f"""Request: \"\"\"<Write chapter {self.chapter.id + 1} with dialogues and emotions using the following characters details:
+        return f"""Request: \"\"\"<Write chapter {self.chapter.id} with dialogues and emotions using the following characters details:
 {new_line.join([f'[character name: {character.name}{new_line}character details: {character.get_description_for_image()}]' for character in characters])}
 now map it to the the information you have in the following events:
 {new_line.join([f'[{event}]' for event in self.chapter.events])}

@@ -29,14 +29,18 @@ event_3 = Event([char3], [char2], Action("ran to and hid from"))
 event_3.set_description_for_image(
     "A narrow alleyway in what appears to be an Asian urban setting, possibly within a Chinatown district. The atmosphere is one of quiet everyday life, with red lanterns hanging above adding a vibrant touch to the otherwise muted and weathered buildings. The signs in Chinese characters suggest a place rich in culture and history, while the deserted nature of the alley gives a sense of stillness and solitude. "
 )
-chapter_events = [event_1, event_2, event_3]
+
+event_4 = Event([char1], [char3], Action("followed in the hallway"))
+event_5 = Event([char3], [char1], Action("Kept running"))
+event_6 = Event([char1], [char3], Action("Snatched"))
+event_7 = Event([char1], [char3], Action("killed"))
+
+chapter_events = [event_1, event_3,event_4,event_5,event_6,event_7]
 #print(event_3.dynamic)
 chapter = Chapter(1, chapter_events)
-print(chapter.get_type())
 chapters = [chapter]
 #------------------------------------
 result = extract_graphs(chapters)[0]
-print(result)
 exGraph = Graph(id=1)
 for ev in chapter.events:
     for sub in ev.subjects:
