@@ -7,7 +7,9 @@ class ChapterPrompt(BasePrompt):
     def __init__(self,story_type: str, chapter: Chapter, previous_chapters_summary: str | None = None):
         self.story_type = story_type
         self.chapter = chapter
-        self.events: list[Event] = self.chapter.get_events()
+        self.actions: list[Event] = self.chapter.get_actions()
+        self.relationships: list[Event] = self.chapter.get_relationships()
+
         # I need to set the chapter type based on id and story type
         self.chaptersRulesDict = {
             "Three": ["Set Up", "Rising and Climax","Resolution"],
@@ -25,8 +27,9 @@ class ChapterPrompt(BasePrompt):
         # added one to the chapter id because the chapter id starts from 0
         return f"""Request: \"\"\"<Write chapter {self.chapter.id + 1} with dialogues using the following characters details:
 {new_line.join([f'[character name: {character.name}{new_line}character details: {character.get_description_for_image()}]' for character in characters])}
+and the relationships between them are {new_line.join([f'[{relation}]' for relation in self.relationships])}.
 now map it to the the information you have in the following events:
-{new_line.join([f'[{event}]' for event in self.chapter.events])}
+{new_line.join([f'[{event}]' for event in self.actions])}
 {previous_chapters_summary}
 {place}>\"\"\"
 Output Length: \"\"\"<3000 words>\"\"\"

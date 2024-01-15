@@ -8,8 +8,20 @@ class Chapter(StoryElement):
         self.events = events
         self.chapterType = chapterType
 
-    def get_events(self) -> list[Event]:
-        return self.events
+    def get_actions(self) -> list[Event]:
+        events=[]
+        for i in range(len(self.events)):
+            if(self.events[i].dynamic == 'action'):
+                events.append(self.events[i])
+        return events
+    
+    def get_relationships(self) -> list[Event]:
+        relationships=[]
+        for i in range(len(self.events)):
+            if(self.events[i].dynamic == 'relationship'):
+                relationships.append(self.events[i])
+        return relationships
+
 
     def get_type(self) -> str:
         return self.chapterType
