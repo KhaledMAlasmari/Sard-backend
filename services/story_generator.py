@@ -5,16 +5,23 @@ from models.chapter import Chapter
 from models.character import Character
 from models.prompts.story_prompt import StoryPrompt
 from models.prompts.chapter_prompt import ChapterPrompt
+from models.prompts.chapter_prompt import ChapterPrompt
 from models.story import Story
 from models.story_element import StoryElement
 from utils.extract_data import extract_chapters
+from models.story_element import StoryElement
+from utils.extract_data import extract_chapters, extract_graphs
 
 
 def generate_story(data: dict):
     genre = data["genre"]
     author_name = data.get("author_name", None)
+    story_type = data.get("story_type",None)
     chapters = extract_chapters(data)
-    story = Story(genre=genre, chapters=chapters, author_name=author_name)
+    # TODO: FIX THIS!!! 
+    #graphs = extract_graphs(data)
+    # Added the story type
+    story = Story(genre=genre, chapters=chapters, author_name=author_name, story_type=story_type)
     story_prompt = StoryPrompt(story)
     print(story_prompt.get_prompt())
     get_descriptions_for_images(chapters)
@@ -24,7 +31,7 @@ def generate_story(data: dict):
     output = []
     for i in range(len(chapters)):
         chapter = chapters[i]
-        chapter_prompt = ChapterPrompt(chapter, previous_chapter_summary)
+        chapter_prompt = ChapterPrompt(story_type,chapter, previous_chapter_summary)
         chapter_story = story_generation_model.generate_story(chapter_prompt.get_prompt())
         output.append(
             {

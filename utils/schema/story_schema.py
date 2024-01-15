@@ -6,6 +6,9 @@ generate_story_schema = {
         "genre": {
             "type": "string"
         },
+        "story_type":{
+            "type": "string"
+        },
         "chapters": {
             "type": "array",
             "items": {

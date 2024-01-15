@@ -2,15 +2,18 @@ from models.chapter import Chapter
 from models.character import Character
 from models.event import Event
 from models.dynamics.action import Action
+from models.ChapterGraph import Graph
 from models.dynamics.relationship import Relationship
 
 def extract_chapters(data) -> list[Chapter]:
     chapters_data = data["chapters"]
     chapters = []
-
     for chapter_data in chapters_data:
+        # we got one chapter 
         events = []
+
         for event in chapter_data["events"]:
+            # loop through the events in the chapter
             subjects = []
             for subject in event["subjects"]:
                 if subject["type"] == "character":
@@ -37,8 +40,32 @@ def extract_chapters(data) -> list[Chapter]:
             events.append(
                 Event(subjects=subjects, objects=objects, dynamic=dynamic)
             )
-
+        # we spliited one event to the infos we need
+        #  We have subjects(edge start), objects (edge end), and dynamic (weight)
         chapters.append(
             Chapter(id=int(chapter_data["id"]), events=events, image=chapter_data["image"])
         )
     return chapters
+#---------------------------------------------------------------------
+# fix this class
+def extract_graphs(chapters: list[Chapter]) -> list[Graph]:
+    graphs = []
+
+    for i in range(len(chapters)):
+        chapter = chapters[i]
+        chGraph = Graph(chapter.id)
+        for event in chapter.events:
+            subjects = event.subjects
+            objects = event.objects
+            action = event.dynamic
+            #  we spliited one event to the infos we need
+            #  We have subjects(edge start), objects (edge end), and dynamic (weight)
+            for sub in subjects:
+                for obj in objects:
+                    chGraph.add_edge(sub,obj,action)
+
+
+        graphs.append(
+            chGraph
+        )
+    return graphs
