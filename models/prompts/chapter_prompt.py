@@ -24,8 +24,7 @@ class ChapterPrompt(BasePrompt):
         previous_chapters_summary = self.get_summary()
         # f strings cannot contain backslashes, so we use the following:
         new_line = "\n"
-        # added one to the chapter id because the chapter id starts from 0
-        return f"""Request: \"\"\"<Write chapter {self.chapter.id + 1} with dialogues using the following characters details:
+        return f"""Request: \"\"\"<Write chapter {self.chapter.id} with dialogues using the following characters details:
 {new_line.join([f'[character name: {character.name}{new_line}character details: {character.get_description_for_image()}]' for character in characters])}
 and the relationships between them are {new_line.join([f'[{relation}]' for relation in self.relationships])}.
 now map it to the the information you have in the following events:
