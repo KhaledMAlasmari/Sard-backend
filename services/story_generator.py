@@ -11,6 +11,7 @@ from models.story_element import StoryElement
 from utils.extract_data import extract_chapters
 from models.story_element import StoryElement
 from utils.extract_data import extract_chapters, extract_graphs
+from flask_socketio import SocketIO, send, emit, join_room, leave_room
 
 
 def generate_story(data: dict):
@@ -24,12 +25,19 @@ def generate_story(data: dict):
     story = Story(genre=genre, chapters=chapters, author_name=author_name, story_type=story_type)
     story_prompt = StoryPrompt(story)
     print(story_prompt.get_prompt())
+    chapters_length = len(chapters)
+    progress_length = chapters_length + 1
+    current_progress = 0
+    progress_to_add = (100 / progress_length)
     get_descriptions_for_images(chapters)
+    current_progress = current_progress + progress_to_add
+    emit("progress", {"progress": current_progress})
     previous_chapter_summary = None
     summerization_model = TextSummarization()
     story_generation_model = StoryGeneration()
     output = []
-    for i in range(len(chapters)):
+    for i in range(chapters_length):
+        
         chapter = chapters[i]
         chapter_prompt = ChapterPrompt(story_type,chapter, previous_chapter_summary)
         chapter_story = story_generation_model.generate_story(chapter_prompt.get_prompt())
@@ -40,9 +48,12 @@ def generate_story(data: dict):
                 "chapter_prompt": chapter_prompt.get_prompt(),
             }
         )
+        current_progress = current_progress + progress_to_add
+        emit("progress", {"progress": current_progress})
         if len(chapters) > 1 or i != len(chapters) - 1:
             previous_chapter_summary = summerization_model.summerize_chapter(chapter_story)
     return output
+
 
 def get_descriptions_for_images(chapters: list[Chapter]):
     model = ImageToText()
