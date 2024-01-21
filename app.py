@@ -11,8 +11,7 @@ from dotenv import load_dotenv
 load_dotenv()
 app = Flask(__name__)
 CORS(app)
-socketio = SocketIO(app, cors_allowed_origins="*")
-
+socketio = SocketIO(app, cors_allowed_origins="*", max_http_buffer_size=300e8)
 
 @socketio.on("generate_story")
 def handle_generate_story(data):
