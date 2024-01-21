@@ -20,6 +20,8 @@ class OpenAiAPI:
                         {
                             "type": "image_url",
                             "image_url": {"url": image},
+                            "detail": "Low"
+
                         },
                     ],
                 }
@@ -44,6 +46,7 @@ class OpenAiAPI:
                             {
                                 "type": "image_url",
                                 "image_url": {"url": image},
+                                "detail": "Low"
                             },
                         ]
                     ],
