@@ -1,7 +1,10 @@
-from flask import Flask, g
+from flask import Flask, g,Response
+import base64
 from flask_socketio import SocketIO, send, emit, join_room, leave_room
 from flask_expects_json import expects_json
 from services.story_generator import generate_story
+from services.translation import translate_complete
+from services.audio_genrator import text_to_audio_openai
 from utils.schema.story_schema import generate_story_schema
 from models.genres import Genres
 from models.authors import Authors
@@ -21,6 +24,29 @@ def handle_generate_story(data):
     generated_story = generate_story(data)
     emit("generated_story", {"story": generated_story})
 
+
+@socketio.on("translate_chapter")
+def translate_chapter(data):
+    chapter_id = data.get('chapterId')
+    text = data.get('text')
+    if not text or chapter_id is None:
+        emit("error", {"message": "Missing text or chapterId"})
+        return
+
+    try:
+        arabic_translation = translate_complete(text)
+        print(arabic_translation)
+        emit("translatred_story", {"chapterId": chapter_id, "translatedText": arabic_translation})
+    except Exception as e:
+        emit("error", {"message": str(e)})
+        print(f"Error translating chapter {chapter_id}: {str(e)}")
+        
+@socketio.on('text_to_audio')
+def gen_audio(text):
+    base64_audio = text_to_audio_openai(text)
+    emit("audio_story", {"audio": base64_audio})
+
+
 @app.route("/genres", methods=["GET", "OPTIONS"])
 def get_genres():
     return {"genres": Genres.get_all_genres()}, 200
@@ -33,8 +59,9 @@ def get_authors():
 
 @socketio.on_error_default  # handles all namespaces without an explicit error handler
 def default_error_handler(e):
-    print("An error occurred:", e)
-    emit("error", {"error": e})
+    error_message = str(e)  # Convert the exception to a string
+    print("An error occurred:", error_message)
+    emit("error", {"error": error_message})
 
 
 # health check endpoint
